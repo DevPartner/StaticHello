@@ -21,9 +21,9 @@ jobs:
         uses: jacobtomlinson/gha-find-replace@v2
         with:
           find: 'Test'
-          replace: "yes"
-          include: "**/*.html"
-          regex: true
+          replace: "Action"
+          include: "**"
+          regex: false
       - name: branch
         run: echo "${{ steps.branch.outputs.value }}"
       - name: Push changes
