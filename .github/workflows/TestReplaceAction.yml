@@ -18,8 +18,6 @@ jobs:
 #          test "${{ steps.selftest.outputs.modifiedFiles }}" == "1"
 #          grep "Hello there" tests/hello.txt
 
-      - name: Print OutputsValue
-        run: echo "${{ steps.selftest.outputs.value }}"
       - name: Print ModifiedFiles
         if: steps.selftest.outputs.modifiedFiles > 0
         run: echo "${{ steps.selftest.outputs.modifiedFiles }}"
