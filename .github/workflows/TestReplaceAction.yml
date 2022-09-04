@@ -1,17 +1,13 @@
-name: Integration Test or Replace Action
+name: Integration Test Find&Replace Action
 on: [push, pull_request]
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Update action.yml to build locally
-        run: |
-          sed -i 's/.*image\:.*/  image\: \"Dockerfile\"/' action.yml
-          cat action.yml
-      - name: Self test
+      - name: Find&Replace
         id: selftest
-        uses: ./
+        uses: jacobtomlinson/gha-find-replace@v2
         with:
           include: "tests/**"
           find: "world"
