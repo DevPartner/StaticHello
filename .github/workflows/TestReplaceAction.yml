@@ -5,7 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Find&Replace
+      - name: Find&Replace href="any_url_path.html"->href="any_url_path"
         id: selftest
         uses: jacobtomlinson/gha-find-replace@v2
         with:
@@ -13,15 +13,15 @@ jobs:
           find: '(href="[^\.]*).html'
           replace: "$1"
           regex: true
-      - name: Check outputs and modified files
-        run: |
-          test "${{ steps.selftest.outputs.modifiedFiles }}" == "1"
-          grep "Hello there" tests/hello.txt
+#      - name: Check outputs and modified files
+#        run: |
+#          test "${{ steps.selftest.outputs.modifiedFiles }}" == "1"
+#          grep "Hello there" tests/hello.txt
       - name: Commit files
         run: |
          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
          git config --local user.name "github-actions[bot]"
-         git commit -m "Replace World->there" -a          
+         git commit -m 'Replace href="any_url_path.html"->href="any_url_path"' -a          
       - name: Push changes
         uses: ad-m/github-push-action@v0.6.0
         with:
