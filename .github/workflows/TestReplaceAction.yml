@@ -1,18 +1,22 @@
-name: My Workflow
+name: Integration Test or Replace Action
 on: [push, pull_request]
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Find and Replace
-        uses: jacobtomlinson/gha-find-replace@v2
+      - name: Update action.yml to build locally
+        run: |
+          sed -i 's/.*image\:.*/  image\: \"Dockerfile\"/' action.yml
+          cat action.yml
+      - name: Self test
+        id: selftest
+        uses: ./
         with:
-          find: "hello"
-          replace: "world"
-          regex: false
-      - name: Push changes
-        uses: ad-m/github-push-action@v0.6.0
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ github.ref }}
+          include: "tests/**"
+          find: "world"
+          replace: "there"
+      - name: Check outputs and modified files
+        run: |
+          test "${{ steps.selftest.outputs.modifiedFiles }}" == "1"
+          grep "Hello there" tests/hello.txt
