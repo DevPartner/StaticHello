@@ -9,9 +9,9 @@ jobs:
         id: selftest
         uses: jacobtomlinson/gha-find-replace@v2
         with:
-          include: "tests/**"
-          find: "world"
-          replace: "there"
+          include: "**/*.html"
+          find: "Test"
+          replace: "Hello"
       - name: Check outputs and modified files
         run: |
           test "${{ steps.selftest.outputs.modifiedFiles }}" == "1"
