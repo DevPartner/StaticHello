@@ -10,8 +10,9 @@ jobs:
         uses: jacobtomlinson/gha-find-replace@v2
         with:
           include: "**/*.html"
-          find: "Test"
-          replace: "Hello"
+          find: '(href="[^\.]*).html'
+          replace: "$1"
+          regex: true
       - name: Check outputs and modified files
         run: |
           test "${{ steps.selftest.outputs.modifiedFiles }}" == "1"
